@@ -1,0 +1,545 @@
+body {
+    background: #aae3f7;
+    margin-bottom: 50px;
+    font-size: 15px;
+}
+
+
+/* Bordered form */
+
+form {
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    background: #fff;
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
+}
+
+
+/* Ne concerne que les header avec un titre formlogin */
+
+header[title="formlogin"] {
+    height: 200px;
+    /*marge par rapport aux éléments extérieurs */
+    margin-top: 30px;
+    margin-bottom: 50px;
+    /*lien vers l'image choisie'*/
+    background-image: url("../img/med2.jpg");
+    /* Positionne et montre le haut de l'image' */
+    background-origin: content-box;
+    background-position: top;
+    /*l'image ne se répète pas' */
+    background-repeat: no-repeat;
+    /*l'image couvre le header' */
+    background-size: auto auto;
+}
+
+header[title="listevisiteur"] {
+    height: 200px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    background-image: url("../img/med2.jpg");
+    /* positionne et montre le bas de l'image'  */
+    background-origin: content-box;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+}
+
+footer {
+    height: 20px;
+    margin-bottom: 50px;
+    /*background-image: url("../img/med1.jpg");
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    text-align: right;
+    font-weight: bold;
+    border: 1px #1585dc solid;
+    padding-right: 20px;
+}
+
+p[title="copyright"] {
+    color: #1585dc;
+    font-family: fantasy;
+    border: 1px solid #1585dc;
+    text-align: right;
+    padding-right: 5px;
+    margin-top: 20px;
+}
+
+p[title="tabvisiteur"] {
+    color: #1585dc;
+    font-family: fantasy;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+thead[title="entetetabvisiteur"] {
+    background-color: #f55e2a;
+    /*orange*/
+    color: white;
+}
+
+.ligneTabVisitColor {
+    background-color: #f9f9c2;
+}
+
+img {
+    width: 100%;
+    max-height: 700px;
+}
+
+#container h1 {
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+
+/**************Style pour élements formulaire *******/
+
+label {
+    color: #1585dc;
+    /*font-family: 'Dancing Script', cursive;*/
+    font-weight: bold;
+}
+
+h2[title="cnx"] {
+    color: #1585dc;
+    font-family: 'Dancing Script', cursive;
+    position: absolute;
+    margin-top: -250px;
+}
+
+
+/* style pour les zone de saisie du formulaire */
+
+input[type=text],
+input[type=password] {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #1585dc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+/* style pour bouton formulaire*/
+
+.btn {
+    background-color: #1585dc;
+    border-radius: 10px;
+    color: white;
+    padding: 14px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #1585dc;
+    border: 1px solid #1585dc;
+}
+
+div[title="choix"] {
+    border: 2px solid blue;
+    height: auto;
+    border-radius: 10px;
+    background-color: white;
+    overflow: hidden;
+}
+
+#formulaire {
+    background-color: white;
+    text-align: left;
+}
+
+form[title="form_login"] {
+    background-color: #aae3f7;
+}
+
+
+/******************************************/
+
+
+/************** CSS TP perso ***************/
+
+
+/* POUR LA PAGE seConnecter.php */
+
+.bg-img {
+    /* classe de la div englobant la div avant le formulaire */
+    background-image: url("../img/med2.jpg");
+    /* lien vers l'image */
+    margin-top: 30px;
+    /* ajouté pour login avec le formulaire dans image */
+    min-height: 380px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* contain fait apparaitre toute l'image mais moins grande que la div */
+    position: relative;
+    /* relative permet de changer l'origine de ce qui sera en absolute à l'intérieur */
+    padding: 10px;
+}
+
+h2[title="cnx"] {
+    color: #ee718b;
+    /* couleur rosée pour rappel tube à essai */
+    font-family: 'Dancing Script', cursive;
+    /* google font */
+    font-size: 4em;
+    position: absolute;
+    left: 5px;
+}
+
+.containerForm {
+    position: absolute;
+    /* top bottom left right se font par rapport à l'élément englobant qui lui erst forcément relative */
+    right: 0;
+    /* positionnement à droite essayer avec left */
+    margin: 20px;
+    /* marge de la div containerForm par rapport à son parent div bg-img */
+    height: 90%;
+    max-width: 300px;
+    padding: 5px;
+    /* marge pour les éléments internes cad les zones du formulaire */
+    background-color: white;
+}
+
+.bg-img input {
+    width: 100%;
+}
+
+.bg-img button {
+    width: 100%;
+}
+
+.bg-img label {
+    float: left;
+}
+
+
+/******************************************/
+
+
+/* pour saisirFicheFrais */
+
+header[title="saisirFF"],
+header[title="home"] {
+    height: 200px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    background-image: url("../img/med2.jpg");
+    background-origin: content-box;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+}
+
+
+/* page liste_medicaments (y compris ses bouts de pages asynchrones) */
+
+header[title="liste_medocs"] {
+    height: 200px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    background-image: url("../img/medocs.jpg");
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    background-origin: content-box;
+    background-position: bottom;
+}
+
+div[title="new_medocs"] {
+    width: auto;
+    height: auto;
+    /*border: 5px red;
+    border-style: none solid dashed;*/
+    border-style: outset;
+}
+
+thead[title="et_newMedocs"] {
+    color: white;
+    background-color: #f55e2a;
+}
+
+.img_medoc {
+    width: 150px;
+    height: 120px;
+}
+
+.ligneTabNewMedocColor1 {
+    background-color: rgb(207, 44, 44);
+}
+
+.msgStockPlein {
+    color: green;
+}
+
+.msgStockFaible {
+    color: rgb(255, 136, 0);
+}
+
+.msgStockEpuise {
+    color: rgb(194, 5, 5);
+}
+
+
+/* page compte_rendu */
+
+header[title="rapport"] {
+    height: 200px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    background-image: url("../img/rapport.jpg");
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    background-origin: content-box;
+    background-position: bottom;
+}
+
+#compte_rendu {
+    width: auto;
+    height: auto;
+    border: 2px solid blue;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+}
+
+#formCR {
+    text-align: left;
+}
+
+#textareaCR {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: flex;
+    border: 1px solid #1585dc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#buttonAddCR {
+    background-color: rgb(36, 167, 36);
+    border-radius: 5px;
+    color: white;
+}
+
+#buttonDelCR {
+    background-color: rgb(224, 13, 13);
+    border-radius: 5px;
+    color: white;
+}
+
+#btnEnvoyerCR {
+    background-color: #1585dc;
+    border-radius: 10px;
+    color: white;
+    padding: 14px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+}
+
+#btnEnvoyerCR:hover {
+    background-color: white;
+    color: #1585dc;
+    border: 1px solid #1585dc;
+}
+
+#tableMedocVendu {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.tdMedocVendu {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.thMedocVendu {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+#MedecinCR {
+    width: 100%;
+}
+
+#MedicamentCR {
+    width: 100%;
+}
+
+
+/* page accueil */
+
+header[title="accueil"] {
+    width: 350px;
+    height: 250px;
+    background-image: url("../img/gsb_logo.png");
+    background-repeat: no-repeat;
+    float: right;
+    border-left: 2px solid black;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+#en-tete_accueil {
+    position: relative;
+    height: 240px;
+    border-bottom: 2px solid black;
+}
+
+#en-tete_accueil p {
+    font-size: 20px;
+    float: right;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+#en-tete_accueil a {
+    font-size: 20px;
+    float: right;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+#accueil_titre {
+    font-size: 50px;
+}
+
+#text_accueil {
+    position: relative;
+    text-align: justify;
+}
+
+#img1 {
+    width: 450px;
+    height: 350px;
+    position: relative;
+    border: 2px solid blue;
+    border-radius: 15px;
+}
+
+#img2 {
+    width: 450px;
+    height: 350px;
+    position: relative;
+    float: right;
+    border: 2px solid blue;
+    border-radius: 15px;
+}
+
+#img3 {
+    width: 650px;
+    height: 250px;
+    position: relative;
+    border: 2px solid blue;
+    border-radius: 15px;
+    float: right;
+    margin-left: 5px;
+}
+
+.sous-titre_accueil {
+    color: #1585dc;
+    margin-top: 40px;
+}
+
+.ligne {
+    border-bottom: 2px solid blue;
+    width: 50px;
+}
+
+.italic {
+    color: rgba(255, 0, 0, 0.849);
+}
+
+
+/* pour la navbar */
+
+nav {
+    margin-top: -50px;
+    height: 50px;
+}
+
+nav a {
+    font-size: 15px;
+}
+
+nav img {
+    float: right;
+    margin-left: 40px;
+    margin-top: -7px;
+    width: 100px;
+    height: 40px;
+}
+
+nav ul {
+    clear: both;
+}
+
+.navbar-brand {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+abbr {
+    font-size: 30px;
+}
+
+.navbar-nav {
+    margin: 105px;
+}
+
+.formValMed {
+    background-color: #aae3f7
+}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul.topnav li {
+    float: left;
+}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {
+    background-color: #111;
+}
+
+ul.topnav li a.active {
+    background-color: #04AA6D;
+}
+
+ul.topnav li.right {
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {
+        float: none;
+    }
+}
