@@ -11,7 +11,8 @@ $ovisiteur = unserialize($_SESSION['visitauth']);
 
 <div id="medocs_mois">
     <?php
-    $opresenters = Cpresenters::GetInstance();
+    // nouvel objet car async
+    $opresenters = new Cpresenters();
     $ocollPresenters = $opresenters->GetPresenterByAnneeMoisAndIdVisiteur($ovisiteur->Id);
 
     ?>

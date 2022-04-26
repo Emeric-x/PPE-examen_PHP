@@ -26,7 +26,7 @@ class Cmedicaments
     public $ocollMedicaments;
     private static $Instance = null;
 
-    private function __construct()
+    public function __construct()
     {
         try
         {

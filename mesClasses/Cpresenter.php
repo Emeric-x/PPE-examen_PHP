@@ -22,16 +22,14 @@ class Cpresenter
 
 class Cpresenters
 {
-    public $ocollPresenter;
+    public $ocollPresenters;
     private static $Instance = null;
 
-    private function __construct()
+    public function __construct()
     {
-        try
-        {
-            $this->ocollPresenter = json_decode(file_get_contents("http://localhost:59906/api/Medicament/GetAllPresenters"));
-        }
-        catch(PDOException $e) {
+        try {
+            $this->ocollPresenters = json_decode(file_get_contents("http://localhost:59906/api/Medicament/GetAllPresenters"));
+        } catch (PDOException $e) {
             $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
             die($msg);
         }
@@ -39,8 +37,7 @@ class Cpresenters
 
     public static function GetInstance()
     {
-        if(self::$Instance == null)
-        {
+        if (self::$Instance == null) {
             self::$Instance = new Cpresenters();
             return self::$Instance;
         }
@@ -50,18 +47,28 @@ class Cpresenters
 
     function GetPresenterByAnneeMoisAndIdVisiteur($sIdVisiteur)
     {
-        $ocollPresenter = null;
-        $omedicaments = Cmedicaments::GetInstance();
+        $ocollPresenter = [];
+        $omedicaments = new Cmedicaments(); // nouvel objet pour async
+        $alreadyAdded = false;
 
-        foreach($this->ocollPresenter as $oUnPresenter)
-        {
-            if($oUnPresenter->Id_visit == $sIdVisiteur && $oUnPresenter->AnneeMois == date('Ym'))
-            {
-                $ocollPresenter[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
+        foreach ($this->ocollPresenters as $oUnPresenter) {
+            $alreadyAdded = false;
+            if ($oUnPresenter->Id_visit == $sIdVisiteur && $oUnPresenter->AnneeMois == date('Ym')) {
+                if (count($ocollPresenter) > 0) {
+                    foreach($ocollPresenter as $oUnPresenterAdded){
+                        if($oUnPresenterAdded->Id == $oUnPresenter->Id_med){
+                            $alreadyAdded = true;
+                        }
+                    }
+                    if($alreadyAdded == false){
+                        $ocollPresenter[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
+                    }
+                }else{
+                    $ocollPresenter[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
+                }
             }
         }
 
         return $ocollPresenter;
     }
 }
-?>
