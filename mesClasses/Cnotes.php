@@ -70,13 +70,6 @@ class Cnotes
 
         $context = stream_context_create($opts);
 
-        if($sInsertOrUpdate == 0) // 0 pour update la note et 1 pour insert la note
-        {
-            file_get_contents("http://localhost:59906/api/Medicament/UpdateNote", false, $context);
-        }
-        else
-        {
-            file_get_contents("http://localhost:59906/api/Medicament/UpdateNote", false, $context);
-        }
+        file_get_contents("http://localhost:59906/api/Medicament/UpdateNote", false, $context);
     }
 }
