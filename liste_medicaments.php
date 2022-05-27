@@ -8,7 +8,7 @@ require_once 'includes/functions.php';
 
 session_start();
 
-$oemploye = unserialize($_SESSION['visitauth']);
+$oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 
 ?>
 

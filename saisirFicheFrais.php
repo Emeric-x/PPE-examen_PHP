@@ -3,7 +3,6 @@
 <html>
 <?php
 require_once 'includes/head.php';
-
 require_once 'mesClasses/Cvisiteurs.php';
 require_once 'mesClasses/CligneFHF.php';
 require_once 'mesClasses/CligneFF.php';
@@ -31,7 +30,7 @@ if (isset($_GET['idLFHF']) || isset($_POST['btnFHF'])) {
 <body>
     <div class='container'>
         <?php
-        if ($oCurrentVisiteur != null) {
+        if ($ovisiteur != null) {
         ?>
             <header title="saisirFF">
             </header>

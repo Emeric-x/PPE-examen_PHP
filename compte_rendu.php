@@ -8,7 +8,7 @@ require_once './mesClasses/Cpdf.php';
 
 session_start();
 
-$oemploye = unserialize($_SESSION['visitauth']);
+$oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 
 $ocollName = Cmedicaments::GetInstance();
 $ocollNom = $ocollName->getAttributMedicaments('nom');
@@ -29,14 +29,14 @@ $ocollNom = $ocollName->getAttributMedicaments('nom');
 
             <br>
 
-            <?php echo "<h2>Bienvenue dans la rédaction des comptes-rendus " . $oemploye->nom . "!</h2>" ?>
+            <?php echo "<h2>Bienvenue dans la rédaction des comptes-rendus " . $oCurrentVisiteur->nom . "!</h2>" ?>
 
             <div id="compte_rendu">
 
                 <form method="POST" id='formCR'>
 
                     <label for="auteurCR">Auteur du compte-rendu : </label><br>
-                    <input type="text" name="auteurCR" placeholder='<?php echo $oemploye->nom . " " . $oemploye->prenom ?>' value='<?php echo $oemploye->nom . " " . $oemploye->prenom ?>' READONLY>
+                    <input type="text" name="auteurCR" placeholder='<?php echo $oCurrentVisiteur->nom . " " . $oCurrentVisiteur->prenom ?>' value='<?php echo $oCurrentVisiteur->nom . " " . $oCurrentVisiteur->prenom ?>' READONLY>
 
                     <br>
                     <br>

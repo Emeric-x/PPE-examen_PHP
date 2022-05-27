@@ -12,6 +12,7 @@ $onotes = new Cnotes();
 $onote = $onotes->GetNoteByIdMed($id_visit, $id_med);
 
 $SuccessMsg = false;
+$oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 ?>
 
 
