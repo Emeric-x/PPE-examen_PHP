@@ -5,6 +5,10 @@
         require_once 'includes/head.php'; //'includes/head_1.php';        
     
         session_start();
+
+        if(isset($_GET['isAuth'])){
+            echo "<script>alert('Vous devez vous connecter pour accéder à ce contenu.')</script>";
+        }
     ?>
     
     <body>

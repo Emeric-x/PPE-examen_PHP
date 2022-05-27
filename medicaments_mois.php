@@ -12,23 +12,31 @@
     session_start();
     require_once 'includes/head.php';
 
+    $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
+
     ?>
 </head>
 
 <body>
     <div class="container">
-        <header title="listevisiteur"></header>
+        <?php
+        if ($oCurrentVisiteur != null) {
+        ?>
+            <header title="listevisiteur"></header>
 
-        <?php require_once 'includes/navBar.php'; ?>
-        <br>
-        <br>
+            <?php require_once 'includes/navBar.php'; ?>
+            <br>
+            <br>
 
-        <div id="affichagePresenters"></div>
+            <div id="affichagePresenters"></div>
 
         <?php
-        if (isset($_GET['sSuccessMsg'])) //vérifie si le booléen existe, (et il existe bien si on a cliqué sur le bouton sauvegarder note, auquel cas on le récupère en get càd dans l'url direct) et affiche l'alerte
-        {
-            echo "<script>alert('Votre note a bien été modifiée !')</script>";
+            if (isset($_GET['sSuccessMsg'])) //vérifie si le booléen existe, (et il existe bien si on a cliqué sur le bouton sauvegarder note, auquel cas on le récupère en get càd dans l'url direct) et affiche l'alerte
+            {
+                echo "<script>alert('Votre note a bien été modifiée !')</script>";
+            }
+        } else {
+            header('Location: seConnecter.php?isAuth=false');
         }
         ?>
     </div>

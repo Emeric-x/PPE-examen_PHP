@@ -47,28 +47,29 @@ class Cpresenters
 
     function GetPresenterByAnneeMoisAndIdVisiteur($sIdVisiteur)
     {
-        $ocollPresenter = [];
+        $ocollPresenterRetour = [];
         $omedicaments = new Cmedicaments(); // nouvel objet pour async
         $alreadyAdded = false;
 
         foreach ($this->ocollPresenters as $oUnPresenter) {
             $alreadyAdded = false;
             if ($oUnPresenter->Id_visit == $sIdVisiteur && $oUnPresenter->AnneeMois == date('Ym')) {
-                if (count($ocollPresenter) > 0) {
-                    foreach($ocollPresenter as $oUnPresenterAdded){
+                if (count($ocollPresenterRetour) > 0) {
+                    foreach($ocollPresenterRetour as $oUnPresenterAdded){
                         if($oUnPresenterAdded->Id == $oUnPresenter->Id_med){
                             $alreadyAdded = true;
+                            break;
                         }
                     }
                     if($alreadyAdded == false){
-                        $ocollPresenter[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
+                        $ocollPresenterRetour[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
                     }
                 }else{
-                    $ocollPresenter[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
+                    $ocollPresenterRetour[] = $omedicaments->GetMedicamentById($oUnPresenter->Id_med);
                 }
             }
         }
 
-        return $ocollPresenter;
+        return $ocollPresenterRetour;
     }
 }
