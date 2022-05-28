@@ -28,7 +28,6 @@ if(isset($_GET['idLFHF'])){
         <thead>
             <tr class="bg-info">
                 <th>Libellé</th>
-                <th>Date</th>
                 <th>Montant</th>
                 <th>Action</th> <!-- supprimer ligne -->
             </tr>
@@ -41,7 +40,6 @@ if(isset($_GET['idLFHF'])){
                     ?>
                     <tr>
                         <td><?=$LigneFHF->Libelle?></td>
-                        <td><?=$LigneFHF->Date?></td>
                         <td><?=($LigneFHF->Montant >= 100)?"class='text-danger'":"";?><?=$LigneFHF->Montant?></td>
                         <td><a href="saisirFicheFrais.php?idLFHF='<?=$LigneFHF->Id?>'" class="btn btn-danger" id="btnSuppLigneFHF" role="button">Supprimer</a></td>
                     </tr>

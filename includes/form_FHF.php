@@ -3,9 +3,10 @@
 $errorMsg = null;
 $successMsg = null;
 
+$oLignFHFs = CligneFHFs::GetInstance();
+
 if(isset($_POST['btnFHF'])){
     if(isset($_POST["libelle"]) && isset($_POST["montant"])){
-        $oLignFHFs = CligneFHFs::GetInstance();
         try{
             $oLignFHFs->insertLigneFHF($_POST["libelle"], $_POST["montant"]);
         } catch (Exception $ex) {

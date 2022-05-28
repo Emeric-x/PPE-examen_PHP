@@ -4,10 +4,10 @@ $errorMsg = null;
 $successMsg = null;
 
 $oFraisForfaits = CfraisForfaits::GetInstance();
+$oLigneFFs = CligneFFs::GetInstance();
 
 if (isset($_POST['btnFF'])) {
     if (isset($_POST["ETPQte"]) && isset($_POST["KMQte"]) && isset($_POST["NUIQte"]) && isset($_POST["REPQte"])) {
-        $oLigneFFs = CligneFFs::GetInstance();
         try {
             foreach($oFraisForfaits->ocollFraisForfait as $unFraisForfait){
                 $oLigneFFs->insertLigneFF($unFraisForfait->Id, $_POST[$unFraisForfait->Id."Qte"]);

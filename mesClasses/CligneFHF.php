@@ -6,16 +6,14 @@ class CligneFHF
     public $idVisiteur;
     public $mois;
     public $libelle;
-    public $date;
     public $montant;
     
-    function __construct($sid, $sidVisiteur, $smois, $slibelle, $sdate, $smontant) 
+    function __construct($sid, $sidVisiteur, $smois, $slibelle, $smontant) 
     {
         $this->id = $sid;
         $this->idVisiteur = $sidVisiteur;
         $this->mois = $smois;
         $this->libelle = $slibelle;
-        $this->date = $sdate;
         $this->montant = $smontant;
     }
 }
@@ -54,11 +52,10 @@ class CligneFHFs
         $AnneeMois = getAnneeMois();
 
         $postdata = json_encode(array(
-            'id' => count($this->ocollLigneFHF)+1,
+            'id' => 0,
             'idVisiteur' => $oCurrentVisiteur->Id,
             'mois' => $AnneeMois,
             'libelle' => $sLibelle,
-            'date' => date("Y-m-d"),
             'montant' => $sMontant
         ));
 
