@@ -7,7 +7,7 @@ require_once 'mesClasses/Cvisiteurs.php';
 require_once 'mesClasses/CligneFHF.php';
 require_once 'mesClasses/CligneFF.php';
 require_once 'mesClasses/CficheFrais.php';
-require_once 'mesClasses/CfraisForfaits.php'; //rajouté pour exo 
+require_once 'mesClasses/CfraisForfaits.php';
 require_once 'includes/functions.php';
 
 $oCurrentVisiteur = null;

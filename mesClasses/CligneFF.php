@@ -18,49 +18,30 @@ class CligneFF
 
 class CligneFFs
 {
-    public $ocollLFF;
-    
-    public function __construct()
+    public $ocollLigneFF;
+    private static $Instance = null;
+
+    private function __construct()
     {
-        try
+        try 
         {
-            $query = "SELECT * FROM lignefraisforfait";
-            $odao = new Cdao();
-            $tabLFF = $odao->gettabDataFromSql($query);
-            $this->ocollLFF = array();
-            
-            foreach ($tabLFF as $oLFF){
-                $this->ocollLFF[] = $oLFF;
-            }
-            
-            unset($odao);
-            
-        } catch (Exception $ex) {
-            $msg = 'ERREUR PDO dans ' . $ex->getFile() . ' L.' . $ex->getLine() . ' : ' . $ex->getMessage();
+            $this->ocollLigneFF = json_decode(file_get_contents("http://localhost:59906/api/FicheFrais/GetAllLigneFF"));
+        } 
+        catch (PDOException $e) {
+            $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
             die($msg);
         }
     }
-    
-    public function insertFF($sforfaitEtape, $sfraisKilometrique, $snuiteeHotel, $srepasRestaurant){
-        $ovisiteur = unserialize($_SESSION['visitauth']);
-        $idVisiteur = $ovisiteur->id;
-        $mois = getAnneeMois();
-        
-        
-        $tabIdFraisForfait = array();
-        $tabIdFraisForfait = ["REP", "NUI", "KM", "ETP"];
-        $tabFraisForfait = array();
-        $tabFraisForfait = [$sforfaitEtape, $sfraisKilometrique, $snuiteeHotel, $srepasRestaurant];
-        $i=0;
-        foreach ($tabFraisForfait as $unFraisForfait){
-            $odao = new Cdao();
-            $query = "call INSERTLFF ('".$idVisiteur."','".$mois."','".$tabIdFraisForfait[$i]."','".$unFraisForfait."')";
-            $odao->insert($query);
-            
-            $i++;
+
+    public static function GetInstance()
+    {
+        if(self::$Instance == null)
+        {
+            self::$Instance = new CligneFFs;
+            return self::$Instance;
         }
-        $i=0;
-        
+
+        return self::$Instance;
     }
     
 }
