@@ -33,7 +33,7 @@ if (isset($_POST['btnFF'])) {
             <div class="form-group">
                 <label class="control-label col-sm-2" for="forfaitEtape"><?php echo $unFraisForfait->Libelle ?> :</label>
                 <div class="col-sm-10">
-                <?php echo "<input class='form-control' name='" . $unFraisForfait->Id . "Qte' value='0' required= type=number min=0 step=1 style=width: 49%; float: left; margin-right: 15px" ?>
+                <input class='form-control' <?php echo "name='" . $unFraisForfait->Id . "Qte'"?> value='0' required type='number' min='0' step='1' style='width: 49%; float: left; margin-right: 15px'>
                     <input class="form-control" <?php echo "name='" . $unFraisForfait->Id . "Mt'" ?> <?php echo "placeholder='" . $unFraisForfait->Montant . "'" ?> readonly style="width: 49%">
                 </div>
             </div>
