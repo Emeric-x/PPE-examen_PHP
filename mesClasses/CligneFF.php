@@ -1,5 +1,7 @@
 <?php
 
+require_once 'includes/functions.php';
+
 class CligneFF
 {
     public $idVisiteur;
@@ -43,5 +45,27 @@ class CligneFFs
 
         return self::$Instance;
     }
-    
+
+    public function insertLigneFF($sidFraisForfait, $sFraisForfaitQte)
+    {
+        $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
+        $AnneeMois = getAnneeMois();
+
+        $postdata = json_encode(array(
+            'idVisiteur' => $oCurrentVisiteur->id,
+            'mois' => $AnneeMois,
+            'idFraisForfait' => $sidFraisForfait,
+            'quantite' => $sFraisForfaitQte
+        ));
+
+        $opts = array('http' => array(
+            'method' => 'POST',
+            'header' => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $postdata
+        ));
+
+        $context = stream_context_create($opts);
+
+        file_get_contents("http://localhost:59906/api/FicheFrais/InsertLigneFF", false, $context);
+    }
 }
