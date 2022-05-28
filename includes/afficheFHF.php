@@ -5,6 +5,7 @@ require_once './mesClasses/CligneFHF.php';
 $oLigneFHFs = CligneFHFs::GetInstance();
 
 $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
+$mois = getAnneeMois();
 
 if(isset($_GET['idLFHF'])){
     try{
@@ -22,7 +23,7 @@ if(isset($_GET['idLFHF'])){
 ?>
 
 <div class="container">
-    <h4><p class="text-primary">Récapitulatif des frais hors forfait du mois :<?=' '.moisEnFrancais(date('F')).' ('.count($oLigneFHFs->ocollLigneFHF)." lignes) " ;?><span class="glyphicon glyphicon-align-justify"></span></p></h4>
+    <h4><p class="text-primary">Récapitulatif des frais hors forfait du mois :<?=' '.moisEnFrancais(date('F')).' ('.count($oLigneFHFs->GetLigneFHFByIdVisitMois($oCurrentVisiteur->Id, $mois))." lignes) " ;?><span class="glyphicon glyphicon-align-justify"></span></p></h4>
     <table class="table table-hover">
         <thead>
             <tr class="bg-info">
@@ -34,8 +35,6 @@ if(isset($_GET['idLFHF'])){
         </thead>
         <tbody>
             <?php
-            $mois = getAnneeMois();
-
             $ocollLigneFHFsByVisiteur = $oLigneFHFs->GetLigneFHFByIdVisitMois($oCurrentVisiteur->Id, $mois);
             if(count($ocollLigneFHFsByVisiteur) > 0){
                 foreach($ocollLigneFHFsByVisiteur as $LigneFHF){

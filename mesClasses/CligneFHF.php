@@ -58,6 +58,7 @@ class CligneFHFs
             'idVisiteur' => $oCurrentVisiteur->Id,
             'mois' => $AnneeMois,
             'libelle' => $sLibelle,
+            'date' => date("Y-m-d"),
             'montant' => $sMontant
         ));
 
