@@ -47,7 +47,6 @@ class Cvisiteurs
 
     private function __construct()
     {
-
         try 
         {
             $this->ocollVisiteur = json_decode(file_get_contents("http://localhost:59906/api/Employe/GetAllVisiteurs"));
