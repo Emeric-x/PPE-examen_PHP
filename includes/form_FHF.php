@@ -5,9 +5,9 @@ $successMsg = null;
 
 if(isset($_POST['btnFHF'])){
     if(isset($_POST["libelle"]) && isset($_POST["montant"])){
-        $oLignFHFs = new CligneFHFs;
+        $oLignFHFs = CligneFHFs::GetInstance();
         try{
-            $oLignFHFs->insertFHF($_POST["libelle"], $_POST["montant"]);
+            $oLignFHFs->insertLigneFHF($_POST["libelle"], $_POST["montant"]);
         } catch (Exception $ex) {
             $errorMsg = "Erreur lors de l'insertion dans la base.".$ex->getMessage()." Prévenir l'administrateur.";
         }

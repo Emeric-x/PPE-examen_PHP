@@ -10,7 +10,7 @@ if (isset($_POST['btnFF'])) {
         $oLigneFFs = CligneFFs::GetInstance();
         try {
             foreach($oFraisForfaits->ocollFraisForfait as $unFraisForfait){
-                $oLigneFFs->insertLigneFF($unFraisForfait->idFraisForfait, $_POST[$unFraisForfait->idFraisForfait."Qte"]);
+                $oLigneFFs->insertLigneFF($unFraisForfait->IdFraisForfait, $_POST[$unFraisForfait->IdFraisForfait."Qte"]);
             }
             echo 'Insertion réussie !';
         } catch (Exception $ex) {
@@ -31,10 +31,10 @@ if (isset($_POST['btnFF'])) {
         foreach ($oFraisForfaits->ocollFraisForfait as $unFraisForfait) {
         ?>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="forfaitEtape"><?php echo $unFraisForfait->libelle ?> :</label>
+                <label class="control-label col-sm-2" for="forfaitEtape"><?php echo $unFraisForfait->Libelle ?> :</label>
                 <div class="col-sm-10">
-                    <input class="form-control" <?php echo "name='" . $unFraisForfait->id . "Qte'" ?> value="0" required="required" type="number" min="0" step="1" style="width: 49%; float: left; margin-right: 15px">
-                    <input class="form-control" <?php echo "name='" . $unFraisForfait->id . "Mt'" ?> <?php echo "placeholder='" . $unFraisForfait->montant . "'" ?> readonly style="width: 49%">
+                    <input class="form-control" <?php echo "name='" . $unFraisForfait->Id . "Qte'" ?> value="0" required="required" type="number" min="0" step="1" style="width: 49%; float: left; margin-right: 15px">
+                    <input class="form-control" <?php echo "name='" . $unFraisForfait->Id . "Mt'" ?> <?php echo "placeholder='" . $unFraisForfait->Montant . "'" ?> readonly style="width: 49%">
                 </div>
             </div>
         <?php

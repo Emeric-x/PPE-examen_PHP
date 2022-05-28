@@ -52,7 +52,7 @@ class CligneFFs
         $AnneeMois = getAnneeMois();
 
         $postdata = json_encode(array(
-            'idVisiteur' => $oCurrentVisiteur->id,
+            'idVisiteur' => $oCurrentVisiteur->Id,
             'mois' => $AnneeMois,
             'idFraisForfait' => $sidFraisForfait,
             'quantite' => $sFraisForfaitQte

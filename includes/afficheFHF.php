@@ -2,14 +2,13 @@
 
 require_once './mesClasses/CligneFHF.php';
 
-$oLigneFHFs = new CligneFHFs();
+$oLigneFHFs = CligneFHFs::GetInstance();
 
-$ovisiteur = unserialize($_SESSION['visitauth']);
-$nbre = $oLigneFHFs->getNbreLFHF($ovisiteur->id);
+$oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 
 if(isset($_GET['idLFHF'])){
     try{
-        $oLigneFHFs->deleteFHF($_GET['idLFHF']);
+        //$oLigneFHFs->deleteFHF($_GET['idLFHF']);
         /* envoie un en-tête en appelant l'url et en demandant un rafraichissement de la page à 0 seconde
          * Adaptez l'url en fonction de vos besoins
          */
@@ -23,7 +22,7 @@ if(isset($_GET['idLFHF'])){
 ?>
 
 <div class="container">
-    <h4><p class="text-primary">Récapitulatif des frais hors forfait du mois :<?=' '.moisEnFrancais(date('F')).' ('.$nbre[0][0]." lignes) " ;?><span class="glyphicon glyphicon-align-justify"></span></p></h4>
+    <h4><p class="text-primary">Récapitulatif des frais hors forfait du mois :<?=' '.moisEnFrancais(date('F')).' ('.count($oLigneFHFs->ocollLigneFHF)." lignes) " ;?><span class="glyphicon glyphicon-align-justify"></span></p></h4>
     <table class="table table-hover">
         <thead>
             <tr class="bg-info">
@@ -35,18 +34,17 @@ if(isset($_GET['idLFHF'])){
         </thead>
         <tbody>
             <?php
-
             $mois = getAnneeMois();
-            $ovisiteur = unserialize($_SESSION['visitauth']);
-            $ocollLigneFHFsByVisiteur = $oLigneFHFs->getFHFByIdVisiteurMois($ovisiteur->id, $mois);
-            if(count($ocollLigneFHFsByVisiteur) != 0){
+
+            $ocollLigneFHFsByVisiteur = $oLigneFHFs->GetLigneFHFByIdVisitMois($oCurrentVisiteur->Id, $mois);
+            if(count($ocollLigneFHFsByVisiteur) > 0){
                 foreach($ocollLigneFHFsByVisiteur as $LigneFHF){
                     ?>
                     <tr>
-                        <td><?=$LigneFHF->libelle?></td>
-                        <td><?=$LigneFHF->date?></td>
-                        <td><?=($LigneFHF->montant >= 100)?"class='text-danger'":"";?><?=$LigneFHF->montant?></td>
-                        <td><a href="saisirFicheFrais.php?idLFHF='<?=$LigneFHF->id?>'" class="btn btn-danger" id="btnSuppLigneFHF" role="button">Supprimer</a></td>
+                        <td><?=$LigneFHF->Libelle?></td>
+                        <td><?=$LigneFHF->Date?></td>
+                        <td><?=($LigneFHF->Montant >= 100)?"class='text-danger'":"";?><?=$LigneFHF->Montant?></td>
+                        <td><a href="saisirFicheFrais.php?idLFHF='<?=$LigneFHF->Id?>'" class="btn btn-danger" id="btnSuppLigneFHF" role="button">Supprimer</a></td>
                     </tr>
                 <?php }
             }
