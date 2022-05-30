@@ -10,13 +10,15 @@ class Cpresenter
     public $id_visit;
     public $id_medecin;
     public $anneMois;
+    public $isVisite;
 
-    function __construct($sid_med, $sid_visit, $sid_medecin, $sanneeMois)
+    function __construct($sid_med, $sid_visit, $sid_medecin, $sanneeMois, $sisVisite)
     {
         $this->id_med = $sid_med;
         $this->id_visit = $sid_visit;
         $this->id_medecin = $sid_medecin;
         $this->anneeMois = $sanneeMois;
+        $this->isVisite = $sisVisite;
     }
 }
 
