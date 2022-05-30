@@ -1,21 +1,22 @@
 <?php
 
 require_once './fpdf183/fpdf.php';
-require_once 'mesClasses/Cdao.php';
 
 class Cpdf
 {
     public $id;
-    public $auteur;
+    public $id_visiteur;
     public $fichier;
     public $date;
+    public $sanneeMois;
 
-    function __construct($sid, $sauteur, $sfichier, $sdate)
+    function __construct($sid, $sid_visiteur, $sfichier, $sdate, $sanneeMois)
     {
         $this->id = $sid;
-        $this->auteur = $sauteur;
+        $this->id_visiteur = $sid_visiteur;
         $this->fichier = $sfichier;
         $this->date = $sdate;
+        $this->anneeMois = $sanneeMois;
     }
 
 }
@@ -23,24 +24,29 @@ class Cpdf
 class Cpdfs
 {
     public $ocollPdfs;
+    private static $Instance = null;
 
-    public function __construct()
+    private function __construct()
     {
-        try
+        try 
         {
-            $query = "SELECT * FROM pdf_visiteur";
-            $odao = new Cdao();
-            $lesPdf = $odao->gettabDataFromSql($query);
-
-            foreach ($lesPdf as $unPdf)
-            {
-                $opdf = new Cpdf($unPdf['id'], $unPdf['auteur'], $unPdf['fichier'], $unPdf['date']);
-                $this->ocollPdfs[] = $opdf;
-            }
-        } catch(PDOException $e) {
+            $this->ocollPdfs = json_decode(file_get_contents("http://localhost:59906/api/CompteRendu/GetAllCompteRendu"));
+        } 
+        catch (PDOException $e) {
             $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
             die($msg);
         }
+    }
+
+    public static function GetInstance()
+    {
+        if(self::$Instance == null)
+        {
+            self::$Instance = new Cpdfs;
+            return self::$Instance;
+        }
+
+        return self::$Instance;
     }
 
     // peut-etre faire une classe outil pour cette fonction
