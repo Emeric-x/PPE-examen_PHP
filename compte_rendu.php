@@ -10,9 +10,6 @@ session_start();
 
 $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 
-$ocollName = Cmedicaments::GetInstance();
-$ocollNom = $ocollName->getAttributMedicaments('nom');
-
 ?>
 
 <body>
@@ -29,14 +26,14 @@ $ocollNom = $ocollName->getAttributMedicaments('nom');
 
             <br>
 
-            <?php echo "<h2>Bienvenue dans la rédaction des comptes-rendus " . $oCurrentVisiteur->nom . "!</h2>" ?>
+            <?php echo "<h2>Bienvenue dans la rédaction des comptes-rendus " . $oCurrentVisiteur->Nom . "!</h2>" ?>
 
             <div id="compte_rendu">
 
                 <form method="POST" id='formCR'>
 
                     <label for="auteurCR">Auteur du compte-rendu : </label><br>
-                    <input type="text" name="auteurCR" placeholder='<?php echo $oCurrentVisiteur->nom . " " . $oCurrentVisiteur->prenom ?>' value='<?php echo $oCurrentVisiteur->nom . " " . $oCurrentVisiteur->prenom ?>' READONLY>
+                    <input type="text" name="auteurCR" placeholder='<?php echo $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom ?>' value='<?php echo $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom ?>' READONLY>
 
                     <br>
                     <br>
@@ -54,11 +51,11 @@ $ocollNom = $ocollName->getAttributMedicaments('nom');
 
                 <?php
 
-                if (isset($_POST['auteurCR']) && isset($_POST['resumeCR'])) {
-                    if (!empty($_POST['auteurCR']) && !empty($_POST['resumeCR'])) {
+                if (isset($_POST['resumeCR'])) {
+                    if (!empty($_POST['resumeCR'])) {
 
-                        $opdf = new Cpdfs();
-                        $ogeneratePdf = $opdf->generatePDF($_POST['auteurCR'], $_POST['resumeCR']);
+                        $opdfs = Cpdfs::GetInstance();
+                        $opdf->generatePDF($_POST['resumeCR']);
 
                         $successmsg = "Votre compte-rendu a été envoyé avec succès !";
                         echo "<script>alert('" . $successmsg . "')</script>";
@@ -80,9 +77,6 @@ $ocollNom = $ocollName->getAttributMedicaments('nom');
         ?>
 
     </div>
-
-    <script src=includes/script.js></script>
-    <script src="lib/jquery/jquery.min.js"></script>
 </body>
 
 </html>

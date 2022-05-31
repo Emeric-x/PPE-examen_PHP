@@ -5,17 +5,15 @@ require_once './fpdf183/fpdf.php';
 class Cpdf
 {
     public $id;
-    public $id_visiteur;
+    public $id_visit;
     public $fichier;
-    public $date;
     public $sanneeMois;
 
-    function __construct($sid, $sid_visiteur, $sfichier, $sdate, $sanneeMois)
+    function __construct($sid, $sid_visit, $sfichier, $sanneeMois)
     {
         $this->id = $sid;
-        $this->id_visiteur = $sid_visiteur;
+        $this->id_visit = $sid_visit;
         $this->fichier = $sfichier;
-        $this->date = $sdate;
         $this->anneeMois = $sanneeMois;
     }
 
@@ -49,16 +47,17 @@ class Cpdfs
         return self::$Instance;
     }
 
-    // peut-etre faire une classe outil pour cette fonction
-    function generatePDF($sauteurCR, $sresumeCR)
+    function generatePDF($sresumeCR)
     {
+        $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
+
         ob_get_clean();
         $pdf = new FPDF('P','mm','A4');
         $pdf->AddPage();
 
         $pdf->SetFont("Arial", "", 12);
         $pdf->SetTextColor(0,0,0);
-        $pdf->Cell(0,10, "Compte-rendu de ".$sauteurCR, 1,1,"C");
+        $pdf->Cell(0,10, "Compte-rendu de ".$oCurrentVisiteur->Nom." ".$oCurrentVisiteur->Prenom, 1,1,"C");
         $pdf->Ln(20); // saut de ligne 20mm
         $date = date('Y-m-d'); // Date du jour
         setlocale(LC_TIME, "fr_FR");
@@ -69,30 +68,29 @@ class Cpdfs
         $pdfGenere = $pdf->Output("", utf8_decode("S"));
 
         $a = new Cpdfs();
-        $a->insertPdf($sauteurCR, $pdfGenere);
+        $a->insertPdf($oCurrentVisiteur->Id, $pdfGenere);
     }
     
-    function insertPdf($ssauteurCR, $spdfGenere)
+    function insertPdf($sIdVisiteur, $spdfGenere)
     {
-        $odaoAdd = new Cdao();
-        $queryAdd = "INSERT INTO `pdf_visiteur` (`auteur`, `fichier`) VALUES ('".$ssauteurCR."', '".$spdfGenere."');";
-        $odaoAdd->insert($queryAdd);
-    }
+        $AnneeMois = getAnneeMois();
 
-    function affiche_Allpdf()
-    {
-        $odaoAffiche = new Cdao();
-        $queryAffiche = "SELECT * FROM pdf_visiteur ORDER BY date desc";
+        $postdata = json_encode(array(
+            'id' => count($this->ocollPdfs)+1,
+            'id_visit' => $sIdVisiteur,
+            'fichier' => $spdfGenere,
+            'anneeMois' => $AnneeMois
+        ));
 
-        return $odaoAffiche->gettabDataFromSql($queryAffiche);
-    }
+        $opts = array('http' => array(
+            'method' => 'POST',
+            'header' => 'Content-type: application/x-www-form-urlencoded',
+            'content' => $postdata
+        ));
 
-    function affiche_pdfPerso($snomvisiteur)
-    {
-        $odaoAffiche = new Cdao();
-        $queryAffiche = "SELECT * FROM pdf_visiteur WHERE auteur LIKE '%".$snomvisiteur."%' ORDER BY date desc";
+        $context = stream_context_create($opts);
 
-        return $odaoAffiche->gettabDataFromSql($queryAffiche);
+        file_get_contents("http://localhost:59906/api/CompteRendu/InsertCompteRendu", false, $context);
     }
 }
 
