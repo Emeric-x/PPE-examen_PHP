@@ -48,7 +48,7 @@ $curPageName = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], 
 
       <!-- Links -->
       <li class="nav-item">
-        <a class="nav-link" href="espace_visiteur.php"><span class="glyphicon glyphicon-user"></span> Bienvenue <?php echo $oemploye->Nom ?></a>
+        <a class="nav-link"><span class="glyphicon glyphicon-user"></span> Bienvenue <?php echo $oemploye->Nom ?></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="deconnexion.php"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a>
