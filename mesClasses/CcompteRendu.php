@@ -16,21 +16,18 @@ class CcompteRendu
         $this->lienFichier = $slienFichier;
         $this->anneeMois = $sanneeMois;
     }
-
 }
 
 class CcompteRendus
 {
-    public $ocollPdfs;
+    public $ocollCompteRendus;
     private static $Instance = null;
 
     private function __construct()
     {
-        try 
-        {
-            $this->ocollPdfs = json_decode(file_get_contents("http://localhost:59906/api/CompteRendu/GetAllCompteRendu"));
-        } 
-        catch (PDOException $e) {
+        try {
+            $this->ocollCompteRendus = json_decode(file_get_contents("http://localhost:59906/api/CompteRendu/GetAllCompteRendu"));
+        } catch (PDOException $e) {
             $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
             die($msg);
         }
@@ -38,8 +35,7 @@ class CcompteRendus
 
     public static function GetInstance()
     {
-        if(self::$Instance == null)
-        {
+        if (self::$Instance == null) {
             self::$Instance = new CcompteRendus();
             return self::$Instance;
         }
@@ -52,28 +48,35 @@ class CcompteRendus
         $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
         $AnneeMois = getAnneeMois();
 
+        //creation pdf
         ob_get_clean();
-        $pdf = new FPDF('P','mm','A4');
+        $pdf = new FPDF('P', 'mm', 'A4');
         $pdf->AddPage();
 
+        // parametre police
         $pdf->SetFont("Arial", "", 12);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->Cell(0,10, "Compte-rendu de ".$oCurrentVisiteur->Nom." ".$oCurrentVisiteur->Prenom, 1,1,"C");
-        $pdf->Ln(20); // saut de ligne 20mm
-        $date = date('Y-m-d'); // Date du jour
+        $pdf->SetTextColor(0, 0, 0);
+
+        //header
+        $pdf->Cell(0, 10, "Compte-rendu de " . $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom, 1, 1, "C");
+
+        // saut de ligne 20mm
+        $pdf->Ln(20);
+
+        //body
+        $date = date('Y-m-d');
         setlocale(LC_TIME, "fr_FR");
-        //echo strftime("%A %d %B %G", strtotime($date));  Mercredi 26 octobre 2016
-        $pdf->Text(28,38,'Date : '.strftime("%A %d %B %G", strtotime($date))); // afficher la date ici
-        $pdf->Text(8,43, utf8_decode('Résumé de la journée : '.$sresumeCR)); //utf8_decode pour afficher les caractères accents etc
+        $pdf->Text(8, 38, 'Date : ' . strftime("%A %d %B %G", strtotime($date)));
+        $pdf->Text(8, 43, utf8_decode('Résumé de la journée : ' . $sresumeCR)); //utf8_decode pour afficher les caractères accents etc
 
         //$pdfGenere = $pdf->Output("", utf8_decode("S"));
-
-        $lienPdf = 'pdfs/'.$oCurrentVisiteur->Nom.$oCurrentVisiteur->Prenom.'-CompteRendu-'.$AnneeMois.'.pdf';
-        $pdf->Output('F',$lienPdf);
+        $cpt = count($this->ocollCompteRendus) + 1;
+        $lienPdf = 'pdfs/' . $oCurrentVisiteur->Nom . $oCurrentVisiteur->Prenom . '-CompteRendu-' . $AnneeMois . '-' . $cpt . '.pdf';
+        $pdf->Output('F', $lienPdf);
 
         $this->insertPdf($oCurrentVisiteur->Id, $lienPdf);
     }
-    
+
     function insertPdf($sIdVisiteur, $sLienPdf)
     {
         $AnneeMois = getAnneeMois();
@@ -96,5 +99,3 @@ class CcompteRendus
         file_get_contents("http://localhost:59906/api/CompteRendu/InsertCompteRendu", false, $context);
     }
 }
-
-?>
