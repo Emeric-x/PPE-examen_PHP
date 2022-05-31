@@ -4,7 +4,7 @@
 
 require_once 'includes/head.php';
 require_once './mesClasses/Cmedicaments.php';
-require_once './mesClasses/Cpdf.php';
+require_once './mesClasses/CcompteRendu.php';
 
 session_start();
 
@@ -54,7 +54,7 @@ $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
                 if (isset($_POST['resumeCR'])) {
                     if (!empty($_POST['resumeCR'])) {
 
-                        $opdfs = Cpdfs::GetInstance();
+                        $opdfs = CcompteRendus::GetInstance();
                         $opdfs->generatePDF($_POST['resumeCR']);
 
                         $successmsg = "Votre compte-rendu a été envoyé avec succès !";

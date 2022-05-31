@@ -2,7 +2,7 @@
 
 require_once './fpdf183/fpdf.php';
 
-class Cpdf
+class CcompteRendu
 {
     public $id;
     public $id_visit;
@@ -19,7 +19,7 @@ class Cpdf
 
 }
 
-class Cpdfs
+class CcompteRendus
 {
     public $ocollPdfs;
     private static $Instance = null;
@@ -40,7 +40,7 @@ class Cpdfs
     {
         if(self::$Instance == null)
         {
-            self::$Instance = new Cpdfs;
+            self::$Instance = new CcompteRendus();
             return self::$Instance;
         }
 
