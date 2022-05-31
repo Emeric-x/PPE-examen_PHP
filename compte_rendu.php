@@ -55,7 +55,7 @@ $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
                     if (!empty($_POST['resumeCR'])) {
 
                         $opdfs = Cpdfs::GetInstance();
-                        $opdf->generatePDF($_POST['resumeCR']);
+                        $opdfs->generatePDF($_POST['resumeCR']);
 
                         $successmsg = "Votre compte-rendu a été envoyé avec succès !";
                         echo "<script>alert('" . $successmsg . "')</script>";

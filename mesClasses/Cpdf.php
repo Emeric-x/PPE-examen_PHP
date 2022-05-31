@@ -6,14 +6,14 @@ class Cpdf
 {
     public $id;
     public $id_visit;
-    public $fichier;
+    public $lienFichier;
     public $sanneeMois;
 
-    function __construct($sid, $sid_visit, $sfichier, $sanneeMois)
+    function __construct($sid, $sid_visit, $slienFichier, $sanneeMois)
     {
         $this->id = $sid;
         $this->id_visit = $sid_visit;
-        $this->fichier = $sfichier;
+        $this->lienFichier = $slienFichier;
         $this->anneeMois = $sanneeMois;
     }
 
@@ -50,6 +50,7 @@ class Cpdfs
     function generatePDF($sresumeCR)
     {
         $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
+        $AnneeMois = getAnneeMois();
 
         ob_get_clean();
         $pdf = new FPDF('P','mm','A4');
@@ -65,20 +66,22 @@ class Cpdfs
         $pdf->Text(28,38,'Date : '.strftime("%A %d %B %G", strtotime($date))); // afficher la date ici
         $pdf->Text(8,43, utf8_decode('Résumé de la journée : '.$sresumeCR)); //utf8_decode pour afficher les caractères accents etc
 
-        $pdfGenere = $pdf->Output("", utf8_decode("S"));
+        //$pdfGenere = $pdf->Output("", utf8_decode("S"));
 
-        $a = new Cpdfs();
-        $a->insertPdf($oCurrentVisiteur->Id, $pdfGenere);
+        $lienPdf = 'pdfs/'.$oCurrentVisiteur->Nom.$oCurrentVisiteur->Prenom.'-CompteRendu-'.$AnneeMois.'.pdf';
+        $pdf->Output('F',$lienPdf);
+
+        $this->insertPdf($oCurrentVisiteur->Id, $lienPdf);
     }
     
-    function insertPdf($sIdVisiteur, $spdfGenere)
+    function insertPdf($sIdVisiteur, $sLienPdf)
     {
         $AnneeMois = getAnneeMois();
 
         $postdata = json_encode(array(
-            'id' => count($this->ocollPdfs)+1,
+            'id' => 0,
             'id_visit' => $sIdVisiteur,
-            'fichier' => $spdfGenere,
+            'lienFichier' => $sLienPdf,
             'anneeMois' => $AnneeMois
         ));
 
