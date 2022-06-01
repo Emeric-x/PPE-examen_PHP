@@ -69,7 +69,7 @@ class CcompteRendus
         $date = date('Y-m-d');
         setlocale(LC_TIME, "fr_FR");
         $pdf->Text(8, 38, 'Date : ' . strftime("%A %d %B %G", strtotime($date)));
-        $pdf->Text(8, 43, 'Libellé : ' . $sLibelleCR);
+        $pdf->Text(8, 43, utf8_decode('Libellé : ' . $sLibelleCR));
         $pdf->Text(8, 48, utf8_decode('Résumé de la journée : ' . $sresumeCR)); //utf8_decode pour afficher les caractères accents etc
 
         //$pdfGenere = $pdf->Output("", utf8_decode("S"));
