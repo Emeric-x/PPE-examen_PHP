@@ -299,7 +299,7 @@ header[title="rapport"] {
     background-repeat: no-repeat;
     background-size: auto auto;
     background-origin: content-box;
-    background-position: bottom;
+    background-position: center;
 }
 
 #compte_rendu {

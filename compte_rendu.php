@@ -33,7 +33,14 @@ $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
                 <form method="POST" id='formCR'>
 
                     <label for="auteurCR">Auteur du compte-rendu : </label><br>
-                    <input type="text" name="auteurCR" placeholder='<?php echo $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom ?>' value='<?php echo $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom ?>' READONLY>
+                    <input type="text" name="auteurCR" class="inputCR" placeholder='<?php echo $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom ?>' value='<?php echo $oCurrentVisiteur->Nom . " " . $oCurrentVisiteur->Prenom ?>' READONLY>
+
+                    <br>
+                    <br>
+
+                    <label for="libelleCR">Libellé du compte-rendu : </label><br>
+                    <input type="text" name="libelleCR" class="inputCR">
+
 
                     <br>
                     <br>
@@ -51,11 +58,11 @@ $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 
                 <?php
 
-                if (isset($_POST['resumeCR'])) {
-                    if (!empty($_POST['resumeCR'])) {
+                if (isset($_POST['resumeCR']) && isset($_POST['libelleCR'])) {
+                    if (!empty($_POST['resumeCR']) && !empty($_POST['libelleCR'])) {
 
                         $opdfs = CcompteRendus::GetInstance();
-                        $opdfs->generatePDF($_POST['resumeCR']);
+                        $opdfs->generatePDF($_POST['resumeCR'], $_POST['libelleCR']);
 
                         $successmsg = "Votre compte-rendu a été envoyé avec succès !";
                         echo "<script>alert('" . $successmsg . "')</script>";

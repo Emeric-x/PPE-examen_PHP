@@ -67,7 +67,7 @@ class CligneFHFs
 
         $context = stream_context_create($opts);
 
-        file_get_contents("http://localhost:59906/api/FicheFrais/InsertLigneFHF", false, $context);
+        $this->ocollLigneFHF = json_decode(file_get_contents("http://localhost:59906/api/FicheFrais/InsertLigneFHF", false, $context));
     }
 
     public function GetLigneFHFByIdVisitMois($sidVisiteur, $sMois)

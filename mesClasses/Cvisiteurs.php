@@ -131,8 +131,17 @@ class Cvisiteurs
             }
         }
 
-
-
         return $tabVisiteursByVilleNom;
+    }
+
+    public function GetVisiteurById($sIdVisit)
+    {
+        foreach($this->ocollVisiteur as $unVisiteur){
+            if($unVisiteur->Id == $sIdVisit){
+                return $unVisiteur;
+            }
+        }
+
+        return null;
     }
 }

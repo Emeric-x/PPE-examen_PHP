@@ -8,13 +8,15 @@ class CcompteRendu
     public $id_visit;
     public $lienFichier;
     public $sanneeMois;
+    public $libelle;
 
-    function __construct($sid, $sid_visit, $slienFichier, $sanneeMois)
+    function __construct($sid, $sid_visit, $slienFichier, $sanneeMois, $slibelle)
     {
         $this->id = $sid;
         $this->id_visit = $sid_visit;
         $this->lienFichier = $slienFichier;
         $this->anneeMois = $sanneeMois;
+        $this->libelle = $slibelle;
     }
 }
 
@@ -43,7 +45,7 @@ class CcompteRendus
         return self::$Instance;
     }
 
-    function generatePDF($sresumeCR)
+    function generatePDF($sresumeCR, $sLibelleCR)
     {
         $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
         $AnneeMois = getAnneeMois();
@@ -67,17 +69,18 @@ class CcompteRendus
         $date = date('Y-m-d');
         setlocale(LC_TIME, "fr_FR");
         $pdf->Text(8, 38, 'Date : ' . strftime("%A %d %B %G", strtotime($date)));
-        $pdf->Text(8, 43, utf8_decode('Résumé de la journée : ' . $sresumeCR)); //utf8_decode pour afficher les caractères accents etc
+        $pdf->Text(8, 43, 'Libellé : ' . $sLibelleCR);
+        $pdf->Text(8, 48, utf8_decode('Résumé de la journée : ' . $sresumeCR)); //utf8_decode pour afficher les caractères accents etc
 
         //$pdfGenere = $pdf->Output("", utf8_decode("S"));
         $cpt = count($this->ocollCompteRendus) + 1;
         $lienPdf = 'pdfs/' . $oCurrentVisiteur->Nom . $oCurrentVisiteur->Prenom . '-CompteRendu-' . $AnneeMois . '-' . $cpt . '.pdf';
         $pdf->Output('F', $lienPdf);
 
-        $this->insertPdf($oCurrentVisiteur->Id, $lienPdf);
+        $this->insertPdf($oCurrentVisiteur->Id, $lienPdf, $sLibelleCR);
     }
 
-    function insertPdf($sIdVisiteur, $sLienPdf)
+    function insertPdf($sIdVisiteur, $sLienPdf, $sLibelleCR)
     {
         $AnneeMois = getAnneeMois();
 
@@ -85,7 +88,8 @@ class CcompteRendus
             'id' => 0,
             'id_visit' => $sIdVisiteur,
             'lienFichier' => $sLienPdf,
-            'anneeMois' => $AnneeMois
+            'anneeMois' => $AnneeMois,
+            'libelle' => $sLibelleCR
         ));
 
         $opts = array('http' => array(
@@ -96,6 +100,19 @@ class CcompteRendus
 
         $context = stream_context_create($opts);
 
-        file_get_contents("http://localhost:59906/api/CompteRendu/InsertCompteRendu", false, $context);
+        $this->ocollCompteRendus = json_decode(file_get_contents("http://localhost:59906/api/CompteRendu/InsertCompteRendu", false, $context));
+    }
+
+    public function GetCRByIdVisitAndAnneeMois($sIdVisit, $sAnneeMois)
+    {
+        $ocollCompteRenduRetour = [];
+        foreach($this->ocollCompteRendus as $unCompteRendu)
+        {
+            if($unCompteRendu->Id_visit == $sIdVisit && $unCompteRendu->AnneeMois == $sAnneeMois){
+                $ocollCompteRenduRetour[] = $unCompteRendu;
+            }
+        }
+
+        return $ocollCompteRenduRetour;
     }
 }
