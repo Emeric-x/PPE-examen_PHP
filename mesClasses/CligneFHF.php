@@ -82,5 +82,10 @@ class CligneFHFs
 
         return $ocollLigneFHFretour;
     }
+
+    public function SupprimerLigneFHF($sIdLigneFHF)
+    {
+        $this->ocollLigneFHF = json_decode(file_get_contents("http://localhost:59906/api/FicheFrais/DeleteLigneFHF/".$sIdLigneFHF));
+    }
 }
 

@@ -14,8 +14,9 @@ if (key_exists('visitauth', $_SESSION)) {
     $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 }
 
-if (isset($_GET['idLFHF']) || isset($_POST['btnFHF'])) {
-    $_SESSION['successMSG_FF'] = NULL;
+if (isset($_GET['idLFHF'])) {
+    $oligneFHFs = CligneFHFs::GetInstance();
+    $oligneFHFs->SupprimerLigneFHF($_GET['idLFHF']);
 }
 
 ?>

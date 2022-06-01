@@ -41,7 +41,7 @@ if(isset($_GET['idLFHF'])){
                     <tr>
                         <td><?=$LigneFHF->Libelle?></td>
                         <td><?=($LigneFHF->Montant >= 100)?"class='text-danger'":"";?><?=$LigneFHF->Montant?></td>
-                        <td><a href="saisirFicheFrais.php?idLFHF='<?=$LigneFHF->Id?>'" class="btn btn-danger" id="btnSuppLigneFHF" role="button">Supprimer</a></td>
+                        <td><a href="saisirFicheFrais.php?idLFHF=<?=$LigneFHF->Id?>" class="btn btn-danger" id="btnSuppLigneFHF" role="button">Supprimer</a></td>
                     </tr>
                 <?php }
             }
