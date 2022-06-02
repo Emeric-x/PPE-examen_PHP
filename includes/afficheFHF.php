@@ -7,19 +7,6 @@ $oLigneFHFs = CligneFHFs::GetInstance();
 $oCurrentVisiteur = unserialize($_SESSION['visitauth']);
 $mois = getAnneeMois();
 
-if(isset($_GET['idLFHF'])){
-    try{
-        //$oLigneFHFs->deleteFHF($_GET['idLFHF']);
-        /* envoie un en-tête en appelant l'url et en demandant un rafraichissement de la page à 0 seconde
-         * Adaptez l'url en fonction de vos besoins
-         */
-        echo '<meta http-equiv="refresh" content="0'.';http://locahost/saisirFicheFrais.php">'; // 0 est le temps de rafraichissement (force un rafraichissement plus rapide)
-        //header('location:saisirFicheFrais.php');
-    } catch (Exception $ex) {
-        $errorMsg = "La ligne n° ".$_GET['idLFHF']." "." n'a pas été correctement supprimée.";
-    }
-}
-
 ?>
 
 <div class="container">
@@ -40,7 +27,7 @@ if(isset($_GET['idLFHF'])){
                     ?>
                     <tr>
                         <td><?=$LigneFHF->Libelle?></td>
-                        <td><?=($LigneFHF->Montant >= 100)?"class='text-danger'":"";?><?=$LigneFHF->Montant?></td>
+                        <td <?=($LigneFHF->Montant >= 100)?"class='text-danger'":"";?>><?=$LigneFHF->Montant?></td>
                         <td><a href="saisirFicheFrais.php?idLFHF=<?=$LigneFHF->Id?>" class="btn btn-danger" id="btnSuppLigneFHF" role="button">Supprimer</a></td>
                     </tr>
                 <?php }
