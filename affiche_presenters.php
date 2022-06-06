@@ -40,7 +40,7 @@ $ovisiteur = unserialize($_SESSION['visitauth']);
                             <p class="card-text"><button type="button" onclick="affiche_desc('<?php echo $omedicament->Description ?>')">Description détaillée</button></p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted"><a href="<?php echo "http://localhost/akagami/php/php_notemed/affiche_noteVisit.php?id_visit=" . $ovisiteur->Id . "&id_med=" . $omedicament->Id . "" ?>" target="_blank">
+                            <small class="text-muted"><a href="<?php echo "affiche_noteVisit.php?id_visit=" . $ovisiteur->Id . "&id_med=" . $omedicament->Id . "" ?>" target="_blank">
                                     <h4 id="note">Note Perso</h4>
                                 </a></small>
                         </div>
